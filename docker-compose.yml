@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    stock-postgres:
+        image: postgres
+        ports:
+         - "5432:5432"
+        environment:
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: Toor@1234
+         POSTGRES_DB: db_stock
+        volumes:
+         - stock-postgres-volume:/data/postgres
+
+volumes:
+    stock-postgres-volume:
