@@ -31,13 +31,13 @@ public class ProductController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listProduct(ModelMap model) {
-		model.addAttribute("product", bo.findAll());
+		model.addAttribute("products", bo.findAll());
 		return new ModelAndView("/product/list", model);
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute Product product, BindingResult result, RedirectAttributes att) {
-		if(result.hasErrors()) return "/client/form";
+		if(result.hasErrors()) return "/product/form";
 		
 		if(product.getId() == null)
 			bo.insert(product);
@@ -59,7 +59,7 @@ public class ProductController {
 	public String desactive(@PathVariable("id") Long id, RedirectAttributes att) {
 		Product product = bo.findById(id);
 		bo.toogleStatus(product);
-		att.addFlashAttribute("feedback", "Cliente desativado com sucesso!");
+		att.addFlashAttribute("feedback", "Produto desativado com sucesso!");
 		return "redirect:/products/list";
 	}
 	
@@ -67,7 +67,7 @@ public class ProductController {
 	public String active(@PathVariable("id") Long id, RedirectAttributes att) {
 		Product product = bo.findById(id);
 		bo.toogleStatus(product);
-		att.addFlashAttribute("feedback", "Cliente ativado com sucesso!");
+		att.addFlashAttribute("feedback", "Produto ativado com sucesso!");
 		return "redirect:/products/list";
 	}
 	
