@@ -12,19 +12,25 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springlessons.bo.EntryNoteBO;
+import com.springlessons.bo.SupplierBO;
 import com.springlessons.model.EntryNote;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/entry/notes")
+@RequestMapping("/entry-notes")
 public class EntryNoteController {
 	@Autowired
 	private EntryNoteBO bo;
 	
+	private SupplierBO supplierBO;
+	
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public ModelAndView newEntryNote(ModelMap model) {
+		Long supplierId = null;
+		model.addAttribute("supplierId", supplierId);
 		model.addAttribute("entryNote", new EntryNote());
+		model.addAttribute("suppliers", supplierBO.findAll());
 		return new ModelAndView("/entryNote/form", model);
 	}
 	
@@ -45,7 +51,7 @@ public class EntryNoteController {
 		
 		att.addFlashAttribute("feedback", "Dados salvos com sucesso!");
 		
-		return "redirect:/entry/notes/list";
+		return "redirect:/entry-notes/list";
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
