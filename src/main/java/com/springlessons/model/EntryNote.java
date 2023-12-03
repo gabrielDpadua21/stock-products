@@ -3,6 +3,7 @@ package com.springlessons.model;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ public class EntryNote {
 	private Long id;
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Column(nullable=false, name="created_at", columnDefinition = "DATETIME")
+	@Column(name="created_at", columnDefinition = "DATE")
 	@NotNull(message = "Informe a data de nascimento")
 	private LocalDateTime createdAt;
 	
