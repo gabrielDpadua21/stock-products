@@ -40,5 +40,22 @@ public class EntryNoteItemBO implements CRUD<EntryNoteItem, Long> {
 		dao.delete(item);
 	}
 
+	public boolean itemDuplicate(EntryNoteItem item) {
+		Long entryNoteId = item.getEntryNote().getId();
+		List<EntryNoteItem> itens = dao.listItems(entryNoteId);
+		Long productId = item.getProduct().getId();
+		if (item.getId() == null) {
+			for (EntryNoteItem entryNoteItem : itens) {
+				if (entryNoteItem.getProduct().getId() == productId) return false;
+			}
+			return false;
+		} else {
+			Long entryNoteItemId = item.getId();
+			for (EntryNoteItem entryNoteItem : itens) {
+				if (entryNoteItem.getProduct().getId() == productId && entryNoteItemId == entryNoteItem.getId()) return false;
+			}
+			return false;
+		}
+	}
 	
 }
